@@ -16,7 +16,7 @@
                 <flux:button wire:click="hideConfirmationDialog" variant="ghost">Cancel</flux:button>
             </flux:modal.close>
 
-            <flux:button type="submit" variant="danger">Delete project</flux:button>
+            <flux:button wire:click="dispatch('delete-project')" type="submit" variant="danger">Delete project</flux:button>
         </div>
     </div>
 </flux:modal>

@@ -35,7 +35,7 @@
                                 <img class="w-16 max-w-full max-h-full rounded-2xl" src="{{ asset('storage/' . $project->project_logo) }}" alt="Project Logo">
                             @endif
                         </td>
-                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white"> {{ $project->title }} </td>
+                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white"> {{ $project->title }} {{ $project->id }} </td>
                         <td class="px-6 py-4"> {{ $project->description }} </td>
                         <td class="px-6 py-4 capitalize">
                             @php
@@ -46,7 +46,7 @@
                                     ProjectStatus::COMPLETED->value => 'bg-green-200 text-green-900 border border-green-300',
                                 };
                             @endphp
-                            <span @class([$statusClassNames, 'px-3 py-1 rounded shadow-sm'])>
+                            <span @class([$statusClassNames, 'px-3 py-1 rounded shadow-sm font-semibold'])>
                             {{ $project->status }}
                             </span>
                         </td>
@@ -73,6 +73,7 @@
                                 </flux:modal.trigger>
                                 <flux:modal.trigger name="delete-project">
                                     <flux:button
+                                        wire:click="setProjectId({{$project->id}})"
                                         icon="trash"
                                         class="cursor-pointer text-xs px-2 py-1 rounded-sm"
                                         variant="primary"

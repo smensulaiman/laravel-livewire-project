@@ -39,6 +39,7 @@ class ProjectRepository
 
     public function deleteProject(int $projectId): bool
     {
-        return Project::query()->findOrFail($projectId)->delete();
+        $project = Project::query()->findOrFail($projectId);
+        return $project->delete();
     }
 }

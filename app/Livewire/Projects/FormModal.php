@@ -34,7 +34,7 @@ class FormModal extends Component
     #[Validate('nullable|image|max:2048')]
     public ?TemporaryUploadedFile $logo = null;
 
-    public int $projectId = -1;
+    public ?int $projectId = null;
     public bool $isViewMode = false;
     public ?string $existingImage = null;
 
@@ -47,7 +47,7 @@ class FormModal extends Component
     {
         $validatedData = $this->validate();
 
-        if ($this->projectId !== -1) {
+        if ($this->projectId) {
             $project = $projectService->updateProject($this->projectId, $validatedData);
         } else {
             $project = $projectService->storeProject($validatedData);
