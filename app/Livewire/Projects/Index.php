@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Projects;
 
+use App\Repositories\ProjectRepository;
 use App\Services\ProjectService;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -11,21 +13,14 @@ class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-    protected ProjectService $projectService;
-
-    public function mount(ProjectService $ps): void
+    public function getAllProjects(): LengthAwarePaginator
     {
-        $this->projectService = $ps;
-    }
-
-    public function getAllProjects()
-    {
-        return $this->projectService->getAllProjects();
+        return (new ProjectService(new ProjectRepository()))->getAllProjects()->orderBy('id')->paginate(5);
     }
 
     public function render()
     {
-        $projects = $this->projectService->getAllProjects()->orderBy('id')->paginate(5);
+        $projects = $this->getAllProjects();
         return view('livewire.projects.index', compact('projects'));
     }
 }

@@ -2,17 +2,20 @@
 <flux:modal name="project-modal" variant="flyout">
     <div class="space-y-6">
         <div>
-            <flux:heading class="font-bold" size="lg">{{ $isViewMode ? 'Project Details' : ($projectId ? 'Update' : 'Create') . ' Project' }}</flux:heading>
+            <flux:heading class="font-bold"
+                          size="lg">{{ $isViewMode ? 'Project Details' : ($projectId ? 'Update' : 'Create') . ' Project' }}</flux:heading>
             <flux:text class="mt-2">Add a new project using the form below.</flux:text>
         </div>
 
-        <form wire:submit="saveProject" class="space-y-6">
+        <form wire:submit="insertOrUpdateProject" class="space-y-6">
             <div class="form-group">
-                <flux:input wire:model="title" :disabled="$isViewMode" label="Project Name" placeholder="Enter project name"/>
+                <flux:input wire:model="title" :disabled="$isViewMode" label="Project Name"
+                            placeholder="Enter project name"/>
             </div>
 
             <div class="form-group">
-                <flux:textarea wire:model="description" :disabled="$isViewMode" label="Description" placeholder="Type short description..."
+                <flux:textarea wire:model="description" :disabled="$isViewMode" label="Description"
+                               placeholder="Type short description..."
                                rows="3"/>
             </div>
 
@@ -23,7 +26,8 @@
             <div class="form-group">
                 <flux:select wire:model="status" :disabled="$isViewMode" label="Status" placeholder="Select status...">
                     @foreach(ProjectStatus::cases() as $projectStatus)
-                        <flux:select.option value="{{ $projectStatus->value }}">{{ $projectStatus->value }}</flux:select.option>
+                        <flux:select.option
+                            value="{{ $projectStatus->value }}">{{ $projectStatus->value }}</flux:select.option>
                     @endforeach
                 </flux:select>
             </div>
@@ -47,10 +51,14 @@
                 <flux:spacer/>
 
                 <flux:modal.close>
-                    <flux:button :hidden="$isViewMode" class="cursor-pointer" variant="danger" wire:click="closeModal">Cancel</flux:button>
+                    <flux:button :hidden="$isViewMode" class="cursor-pointer" variant="danger" wire:click="closeModal">
+                        Cancel
+                    </flux:button>
                 </flux:modal.close>
 
-                <flux:button :hidden="$isViewMode" class="cursor-pointer" type="submit" variant="primary"><?= $projectId ? 'Update' : 'Save'?> Project</flux:button>
+                <flux:button :hidden="$isViewMode" class="cursor-pointer" type="submit"
+                             variant="primary"><?= $projectId ? 'Update' : 'Save' ?> Project
+                </flux:button>
             </div>
         </form>
     </div>

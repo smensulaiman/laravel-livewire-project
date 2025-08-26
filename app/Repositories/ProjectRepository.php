@@ -30,4 +30,15 @@ class ProjectRepository
     {
         return Project::query();
     }
+
+    public function updateProject(Project $existingProject, array $projectRequest): Project
+    {
+       $existingProject->update($projectRequest);
+       return Project::query()->findOrFail($existingProject->id);
+    }
+
+    public function deleteProject(int $projectId): bool
+    {
+        return Project::query()->findOrFail($projectId)->delete();
+    }
 }

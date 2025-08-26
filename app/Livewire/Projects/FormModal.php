@@ -43,10 +43,16 @@ class FormModal extends Component
         Flux::modal('project-modal')->close();
     }
 
-    public function saveProject(ProjectService $projectService): Project
+    public function insertOrUpdateProject(ProjectService $projectService): Project
     {
         $validatedData = $this->validate();
-        $project = $projectService->storeProject($validatedData);
+
+        if ($this->projectId !== -1) {
+            $project = $projectService->updateProject($this->projectId, $validatedData);
+        } else {
+            $project = $projectService->storeProject($validatedData);
+        }
+
         $this->reset();
 
         Flux::modal('project-modal')->close();
@@ -69,7 +75,7 @@ class FormModal extends Component
     {
         $this->isViewMode = $mode === 'view';
 
-        if($mode === 'create'){
+        if ($mode === 'create') {
             $this->isViewMode = false;
             $this->reset();
         } else {
